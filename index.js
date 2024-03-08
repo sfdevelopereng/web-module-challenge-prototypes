@@ -15,8 +15,29 @@
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = []
 
+}
+
+Person.prototype.eat = function(food){
+  if(this.stomach.length < 10){
+    this.stomach.push(food)
+    console.log(`${this.name} ate ${food}`)
+} else {
+  console.log(`${this.name} is full cant eat anymore`)
+}
+Person.prototype.poop = function(){
+  return this.stomach = '' 
+
+}
+}
+
+Person.prototype.poop = function() {
+  this.stomach = [];
+  console.log(`this motha trucka has pooped`)
 }
 
 
@@ -36,9 +57,39 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, mpg) {
+  this.model = model;
+  this.mpg = mpg;
+  this.tank = 0; // Initialize tank to 0 gallons
+  this.odometer = 0; // Initialize odometer to 0 miles
 }
+
+Car.prototype.fill = function(gallons) {
+  this.tank += gallons; // Add gallons to the tank
+  console.log(`${this.model} was filled with ${gallons} gallons.`);
+};
+
+Car.prototype.drive = function(distance) {
+  const requiredFuel = distance / this.mpg; // Calculate required fuel
+
+  if (requiredFuel > this.tank) {
+    const milesDriven = this.tank * this.mpg; // Miles driven before running out
+    this.odometer += milesDriven; // Update odometer
+    this.tank = 0; // Empty the tank
+    return `I ran out of fuel at ${this.odometer} miles!`; // Return "ran out of fuel" message
+  } else {
+    this.tank -= requiredFuel; // Deduct fuel used from tank
+    this.odometer += distance; // Update odometer
+    console.log(`${this.model} drove ${distance} miles.`);
+  }
+};
+
+// Example usage
+const myCar = new Car("Tesla Model S", 100);
+myCar.fill(10); // Fill the tank with 10 gallons
+console.log(myCar.drive(200)); // Output: Tesla Model S drove 200 miles.
+console.log(myCar.drive(300)); // Output: I ran out of fuel at 200 miles!
+
 
 
 /*
@@ -49,18 +100,23 @@ function Car() {
         + Should return a string "Playing with x", x being the favorite toy.
 */
 
-function Baby() {
+function Baby(name, age , favoriteToy) {
 
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy
 }
 
+Baby.prototype.play = function(){
+  return `playing with ${this.favoriteToy}`
+}
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. implicit
+  2. explicit apply, call, bind
+  3. new 
+  4.  arrow function
 */
 
 ///////// END OF CHALLENGE /////////
